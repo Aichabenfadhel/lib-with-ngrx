@@ -3,5 +3,38 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
+    "messageTransfer": {
+      "projectType": "library",
+      "root": "projects/message-transfer",
+      "sourceRoot": "projects/message-transfer/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/message-transfer/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/message-transfer/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/message-transfer/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/message-transfer/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        }
+      }
+    }
   }
 }
