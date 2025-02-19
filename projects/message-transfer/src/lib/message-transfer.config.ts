@@ -1,9 +1,9 @@
-import { provideState } from '@ngrx/store';
+import { provideState, provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 import { messageReducer } from './store/message-transfer.reducers';
 import { MessageEffects } from './store/message-transfer.effects';
 
 export const provideMessageStore = [
-  provideState({ name: 'messages', reducer: messageReducer }),
+  provideStore({ 'messages': messageReducer }),
   provideEffects(MessageEffects)
 ];
