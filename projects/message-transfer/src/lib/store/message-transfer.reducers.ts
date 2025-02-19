@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { addMessage, removeMessage, loadMessagesSuccess, loadMessagesFailure } from './message-transfer.actions';
+import { addMessage, removeMessage, loadMessagesSuccess, loadMessagesFailure, loadMessages, addMessageSuccess, addMessageFailure } from './message-transfer.actions';
 import { Message } from './message-transfer.model';
 
 export interface MessageState {
@@ -10,16 +10,22 @@ const initialState: MessageState = {
   messages: [],
 };
 
-export const messageReducer = createReducer(
+ const _messageReducer = createReducer(
   initialState,
-  on(addMessage, (state, { message }) => ({
+ 
+  on(addMessageSuccess, (state, { message }) => ({
     ...state,
-    messages: [...state.messages, message],
+    messages: [...state.messages, message]
+  })),
+  on(addMessageFailure, (state, { error }) => ({
+    ...state,
+    error
   })),
   on(removeMessage, (state, { id }) => ({
     ...state,
     messages: state.messages.filter(msg => msg.id !== id),
   })),
+ 
   on(loadMessagesSuccess, (state, { messages }) => ({
     ...state,
     messages,
@@ -30,3 +36,6 @@ export const messageReducer = createReducer(
     error
   }))
 );
+export function messageReducer(state: any, action: any) {
+  return _messageReducer(state, action);
+}

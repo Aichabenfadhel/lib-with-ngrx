@@ -9,18 +9,22 @@ import { Message } from './message-transfer.model';
   providedIn: 'root',
 })
 export class MessageStore {
+    
   private store = inject(Store);
 
   selectFromStore(): Observable<Message[]> {
     return this.store.select(selectAllMessages);
   }
 
-  loadMessages() {
+  loadMessagesfromStore() {
+      console.log("salem from store");
     this.store.dispatch(loadMessages());
+    
+    //  this.store.dispatch(new GetAllMessagesAction({}))
   }
 
-  addMessages(message:Message) {
-    this.store.dispatch(addMessage({message }));
+  addMessages(text: string, sender: string ) {
+    this.store.dispatch(addMessage({text,sender} ));
   }
   removeMessages(id: number) {
     this.store.dispatch(removeMessage({ id }));
